@@ -1,11 +1,48 @@
 {
   "name": "gh-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Production-ready Node.js REST API skeleton — Express, MongoDB, Redis, PM2",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch index.ts",
+    "prod": "npm run build && pm2 start ecosystem.config.cjs --env production",
+    "prod:stop": "pm2 stop gh-backend",
+    "prod:reload": "pm2 reload gh-backend",
+    "prod:logs": "pm2 logs gh-backend",
+    "scaler": "node scaler.cjs",
+    "lint": "eslint \"src/**/*.ts\" index.ts",
+    "lint:fix": "eslint \"src/**/*.ts\" index.ts --fix",
+    "test": "jest --forceExit --detectOpenHandles"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.3.2",
+    "mongoose": "^8.4.1",
+    "winston": "^3.13.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.14.2",
+    "eslint": "^10.4.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.3",
+    "supertest": "^7.0.0",
+    "tsx": "^4.15.6",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.59.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "ISC"
 }
